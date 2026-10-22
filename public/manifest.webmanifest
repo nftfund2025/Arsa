@@ -1,0 +1,9 @@
+{
+  "name": "arsa",
+  "short_name": "arsa",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#e8edf3",
+  "theme_color": "#22408f",
+  "icons": [{ "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }]
+}
