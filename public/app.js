@@ -206,7 +206,7 @@
       };
       inp.addEventListener('input', () => { inp.value = inp.value.replace(/\D/g, '').slice(0, 6); if (inp.value.length === 6) go(); });
       const form = h('form', { onsubmit: (e) => { e.preventDefault(); go(); } }, inp, err, btn);
-      loginFrame(h('h1', {}, t('code_title')), h('p', { class: 'sub' }, t('code_sub')(email)), form,
+      loginFrame(h('h1', {}, t('code_title')), h('p', { class: 'sub' }, t('code_sub', email)), form,
         h('div', { class: 'login-foot' },
           h('button', { class: 'btn ghost small', onclick: () => renderLogin('email', email) }, t('change_email')),
           h('button', { class: 'btn ghost small', onclick: safe(async () => { await api('/auth/request', { method: 'POST', body: { email } }); toast(t('resend')); }) }, t('resend'))));
@@ -402,9 +402,9 @@
     if (c.type === 'dm') {
       const id = peerId(c); const u = S.users.get(id);
       if (isOnline(id)) return { text: t('online'), live: true };
-      return { text: u && u.last_seen ? t('last_seen')(fmtShort(u.last_seen)) : '', live: false };
+      return { text: u && u.last_seen ? t('last_seen', fmtShort(u.last_seen)) : '', live: false };
     }
-    return { text: (c.type === 'channel' ? t('channel') + ' · ' : '') + t('members')(c.members.length), live: false };
+    return { text: (c.type === 'channel' ? t('channel') + ' · ' : '') + t('members', c.members.length), live: false };
   }
   function renderHead() {
     const c = S.chats.get(S.active); if (!c || !R.head) return;
@@ -618,7 +618,7 @@
       const d = await api('/admin/overview');
       const email = h('input', { class: 'field', type: 'email', dir: 'ltr', placeholder: 'name@company.com' });
       body.replaceChildren(
-        h('b', {}, t('users_count')(d.users.filter((u) => !u.banned).length, d.max_users)),
+        h('b', {}, t('users_count', d.users.filter((u) => !u.banned).length, d.max_users)),
         h('div', { class: 'ulist' }, d.users.map((u) => h('div', { class: 'urow' }, avatar(u.name || u.email, u.id, { sm: true, dot: isOnline(u.id) }),
           h('div', { class: 'grow' }, h('b', {}, u.name || '—'), h('small', {}, u.email)),
           u.role === 'admin' && h('span', { class: 'chip' }, t('admin')), u.banned && h('span', { class: 'chip red' }, t('banned')),
